@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hello canvas</title>
+    <style>
+      canvas {
+        /* 将行内元素转换为块级元素，实现左右居中 */
+        display: block;
+        margin: 0 auto;
+        border: 2px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- canvas在低版本浏览器中不兼容，需要提示用户 -->
+    <canvas width="500px" height="500px" id="canvas">
+      您的浏览器版本过低，请升级浏览器或使用chrome打开。
+    </canvas>
+    <script>
+      // 固定start
+      var canvas = document.getElementById("canvas"); //获取画布
+      var ctx = canvas.getContext("2d"); //获取画布的上下文
+      //固定end
+      var w = 500;
+      var h = 500;
+      var x = 100;
+      var y = 100;
+      var r = 30;
+      //水平速度
+      var xSpeed = 2;
+      //竖直速度
+      var ySpeed = 3;
+      setInterval(() => {
+        //清除整个画布
+        ctx.clearRect(0, 0, w, h);
+        //当小球碰到边缘时，速度取相反即可！
+        if (x - r <= 0 || x + r >= w) {
+          xSpeed = -xSpeed;
+        }
+        x = x + xSpeed;
+        if (y - r <= 0 || y + r >= h) {
+          ySpeed = -ySpeed;
+        }
+        y = y + ySpeed;
+        drawCircle(x, y, r);
+      }, 10);
+
+      function drawCircle(x, y, r) {
+        ctx.beginPath();
+        ctx.arc(x, y, r, 0, Math.PI * 2);
+        // ctx.stroke();//空心
+        ctx.fillStyle = "gold";
+        ctx.fill(); //实心
+      }
+    </script>
+  </body>
+</html>

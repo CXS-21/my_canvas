@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hello canvas</title>
+    <style>
+      canvas {
+        /* 将行内元素转换为块级元素，实现左右居中 */
+        display: block;
+        margin: 0 auto;
+        border: 2px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- canvas在低版本浏览器中不兼容，需要提示用户 -->
+    <canvas width="500px" height="500px" id="canvas">
+      您的浏览器版本过低，请升级浏览器或使用chrome打开。
+    </canvas>
+    <script>
+      // 固定start
+      var canvas = document.getElementById("canvas"); //获取画布
+      var ctx = canvas.getContext("2d"); //获取画布的上下文
+      //固定end
+      var w = 500;
+      var h = 500;
+
+      //随机数值
+      function R(num) {
+        return Math.random() * num;
+      }
+      //1.定义小球类
+      function Ball() {
+        this.x = R(5) + 60; //x起始坐标
+        this.y = R(3) + 60; //y起始坐标
+        this.r = R(50) + 10; //小球半径范围[10,60)
+        this.color = "#" + parseInt(Math.random() * 0xffffff).toString(16); //随机颜色
+        this.xSpeed = R(3) + 2; //水平速度范围：[2,5)
+        this.ySpeed = R(3) + 1; //水平速度范围：[1,4)
+      }
+      //2.定义小球显示方法
+      Ball.prototype.show = function () {
+        //更新坐标，
+        this.run();
+        ctx.beginPath();
+        ctx.arc(this.x, this.y, this.r, 0, Math.PI * 2);
+        ctx.fillStyle = this.color;
+        ctx.fill();
+      };
+      //3.定义小球运动方法
+      Ball.prototype.run = function () {
+        if (this.x - this.r <= 0 || this.x + this.r >= w) {
+          this.xSpeed = -this.xSpeed;
+        }
+        this.x = this.x + this.xSpeed;
+        if (this.y - this.r <= 0 || this.y + this.r >= h) {
+          this.ySpeed = -this.ySpeed;
+        }
+        this.y = this.y + this.ySpeed;
+      };
+      // 4.创建6个小球
+      var ballArr = []; //小球数组
+      for (let i = 0; i < 100; i++) {
+        var ball = new Ball();
+        // 放入小球数组
+        ballArr.push(ball);
+        ball.show();
+      }
+      // 5.小球运动
+      setInterval(() => {
+        //清除整个画布
+        ctx.clearRect(0, 0, w, h);
+        for (let i = 0; i < ballArr.length; i++) {
+          const ball = ballArr[i];
+          //显示小球
+          ball.show();
+        }
+      }, 10);
+    </script>
+  </body>
+</html>

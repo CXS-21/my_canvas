@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>hello canvas</title>
+    <style>
+      canvas {
+        /* 将行内元素转换为块级元素，实现左右居中 */
+        display: block;
+        margin: 0 auto;
+        border: 2px solid #ccc;
+      }
+    </style>
+  </head>
+  <body>
+    <!-- canvas在低版本浏览器中不兼容，需要提示用户 -->
+    <canvas width="500px" height="500px" id="canvas">
+      您的浏览器版本过低，请升级浏览器或使用chrome打开。
+    </canvas>
+    <script>
+      // 固定start
+      var canvas = document.getElementById("canvas"); //获取画布
+      var ctx = canvas.getContext("2d"); //获取画布的上下文
+      //固定end
+
+      ctx.beginPath(); //开始一条路径
+      ctx.moveTo(100, 100); // 确定起始点
+      ctx.lineTo(400, 100); //确定结束点
+      ctx.strokeStyle = "pink"; //画布颜色
+      ctx.lineWidth = 5; //画布线宽(5px)
+      ctx.stroke(); //画布着色
+      ctx.closePath(); //关闭画布
+
+      ctx.beginPath();
+      ctx.moveTo(400, 100);
+      ctx.lineTo(400, 400);
+      ctx.strokeStyle = "green";
+      ctx.lineWidth = 5;
+      ctx.stroke();
+      ctx.closePath();
+
+      ctx.beginPath();
+      ctx.moveTo(400, 400);
+      ctx.lineTo(100, 400);
+      ctx.strokeStyle = "skyblue";
+      ctx.lineWidth = 5;
+      ctx.stroke();
+      ctx.closePath();
+
+      ctx.beginPath();
+      ctx.moveTo(100, 400);
+      ctx.lineTo(100, 100);
+      ctx.strokeStyle = "red";
+      ctx.lineWidth = 5;
+      ctx.stroke();
+      ctx.closePath();
+    </script>
+  </body>
+</html>
